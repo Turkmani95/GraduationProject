@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ftestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="activitystream">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="issueid" Type="int" Nullable="false" />
+    <Property Name="userid" Type="int" Nullable="false" />
+    <Property Name="actiontype" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="issuekey" Type="varchar" MaxLength="50" />
+    <Property Name="actiondate" Type="varchar" MaxLength="50" />
+    <Property Name="description" Type="text" />
+    <Property Name="projectid" Type="int" Nullable="false" />
+    <Property Name="attachment" Type="text" />
+  </EntityType>
+  <EntityType Name="attachment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="text" Nullable="false" />
+    <Property Name="attachmentdest" Type="text" Nullable="false" />
+    <Property Name="issueid" Type="int" Nullable="false" />
+    <Property Name="projectid" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="columns">
+    <Key>
+      <PropertyRef Name="colid" />
+    </Key>
+    <Property Name="colid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="projectid" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Comments">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="projectid" Type="int" Nullable="false" />
+    <Property Name="issueid" Type="int" Nullable="false" />
+    <Property Name="comment" Type="text" />
+    <Property Name="username" Type="varchar" MaxLength="50" />
+    <Property Name="userid" Type="int" Nullable="false" />
+    <Property Name="date" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="issues">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="keyname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
+    <Property Name="descreption" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="priority" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="tags" Type="varchar" MaxLength="50" />
+    <Property Name="estimate" Type="int" />
+    <Property Name="assignee" Type="varchar" MaxLength="50" />
+    <Property Name="rankid" Type="int" />
+    <Property Name="sprintid" Type="int" />
+    <Property Name="projectid" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="pojectdevs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="devname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="projectid" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="projects">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="projectkey" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="date" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="projectowner" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="projecttype" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="projectleader" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="projectname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="currentsprint" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sprints">
+    <Key>
+      <PropertyRef Name="sid" />
+    </Key>
+    <Property Name="sid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="number" Type="int" Nullable="false" />
+    <Property Name="date" Type="varchar" MaxLength="50" />
+    <Property Name="projectid" Type="int" Nullable="false" />
+    <Property Name="numoftissues" Type="int" />
+    <Property Name="estimate" Type="int" />
+  </EntityType>
+  <EntityType Name="Tags">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="issueid" Type="int" Nullable="false" />
+    <Property Name="projectid" Type="int" Nullable="false" />
+    <Property Name="Tag" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_activitystream_issues">
+    <End Role="issues" Type="Self.issues" Multiplicity="1" />
+    <End Role="activitystream" Type="Self.activitystream" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="issues">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="activitystream">
+        <PropertyRef Name="issueid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_activitystream_projects">
+    <End Role="projects" Type="Self.projects" Multiplicity="1" />
+    <End Role="activitystream" Type="Self.activitystream" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="projects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="activitystream">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_attachment_issues">
+    <End Role="issues" Type="Self.issues" Multiplicity="1" />
+    <End Role="attachment" Type="Self.attachment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="issues">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="attachment">
+        <PropertyRef Name="issueid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_attachment_projects">
+    <End Role="projects" Type="Self.projects" Multiplicity="1" />
+    <End Role="attachment" Type="Self.attachment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="projects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="attachment">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_columns_projects">
+    <End Role="projects" Type="Self.projects" Multiplicity="1" />
+    <End Role="columns" Type="Self.columns" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="projects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="columns">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_issues">
+    <End Role="issues" Type="Self.issues" Multiplicity="1" />
+    <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="issues">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="issueid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_projects">
+    <End Role="projects" Type="Self.projects" Multiplicity="1" />
+    <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="projects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_issues_columns">
+    <End Role="columns" Type="Self.columns" Multiplicity="1" />
+    <End Role="issues" Type="Self.issues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="columns">
+        <PropertyRef Name="colid" />
+      </Principal>
+      <Dependent Role="issues">
+        <PropertyRef Name="status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_issues_projects">
+    <End Role="projects" Type="Self.projects" Multiplicity="1" />
+    <End Role="issues" Type="Self.issues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="projects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="issues">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_issues_sprints">
+    <End Role="sprints" Type="Self.sprints" Multiplicity="0..1" />
+    <End Role="issues" Type="Self.issues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sprints">
+        <PropertyRef Name="sid" />
+      </Principal>
+      <Dependent Role="issues">
+        <PropertyRef Name="sprintid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_pojectdevs_projects">
+    <End Role="projects" Type="Self.projects" Multiplicity="1" />
+    <End Role="pojectdevs" Type="Self.pojectdevs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="projects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="pojectdevs">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_projects_sprints">
+    <End Role="sprints" Type="Self.sprints" Multiplicity="0..1" />
+    <End Role="projects" Type="Self.projects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sprints">
+        <PropertyRef Name="sid" />
+      </Principal>
+      <Dependent Role="projects">
+        <PropertyRef Name="currentsprint" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_sprints_projects">
+    <End Role="projects" Type="Self.projects" Multiplicity="1" />
+    <End Role="sprints" Type="Self.sprints" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="projects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="sprints">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tags_issues">
+    <End Role="issues" Type="Self.issues" Multiplicity="1" />
+    <End Role="Tags" Type="Self.Tags" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="issues">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Tags">
+        <PropertyRef Name="issueid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tags_projects">
+    <End Role="projects" Type="Self.projects" Multiplicity="1" />
+    <End Role="Tags" Type="Self.Tags" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="projects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Tags">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ftestModelStoreContainer">
+    <EntitySet Name="activitystream" EntityType="Self.activitystream" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="attachment" EntityType="Self.attachment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="columns" EntityType="Self.columns" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="issues" EntityType="Self.issues" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pojectdevs" EntityType="Self.pojectdevs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="projects" EntityType="Self.projects" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sprints" EntityType="Self.sprints" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_activitystream_issues" Association="Self.FK_activitystream_issues">
+      <End Role="issues" EntitySet="issues" />
+      <End Role="activitystream" EntitySet="activitystream" />
+    </AssociationSet>
+    <AssociationSet Name="FK_activitystream_projects" Association="Self.FK_activitystream_projects">
+      <End Role="projects" EntitySet="projects" />
+      <End Role="activitystream" EntitySet="activitystream" />
+    </AssociationSet>
+    <AssociationSet Name="FK_attachment_issues" Association="Self.FK_attachment_issues">
+      <End Role="issues" EntitySet="issues" />
+      <End Role="attachment" EntitySet="attachment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_attachment_projects" Association="Self.FK_attachment_projects">
+      <End Role="projects" EntitySet="projects" />
+      <End Role="attachment" EntitySet="attachment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_columns_projects" Association="Self.FK_columns_projects">
+      <End Role="projects" EntitySet="projects" />
+      <End Role="columns" EntitySet="columns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_issues" Association="Self.FK_Comments_issues">
+      <End Role="issues" EntitySet="issues" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_projects" Association="Self.FK_Comments_projects">
+      <End Role="projects" EntitySet="projects" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_issues_columns" Association="Self.FK_issues_columns">
+      <End Role="columns" EntitySet="columns" />
+      <End Role="issues" EntitySet="issues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_issues_projects" Association="Self.FK_issues_projects">
+      <End Role="projects" EntitySet="projects" />
+      <End Role="issues" EntitySet="issues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_issues_sprints" Association="Self.FK_issues_sprints">
+      <End Role="sprints" EntitySet="sprints" />
+      <End Role="issues" EntitySet="issues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_pojectdevs_projects" Association="Self.FK_pojectdevs_projects">
+      <End Role="projects" EntitySet="projects" />
+      <End Role="pojectdevs" EntitySet="pojectdevs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_projects_sprints" Association="Self.FK_projects_sprints">
+      <End Role="sprints" EntitySet="sprints" />
+      <End Role="projects" EntitySet="projects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sprints_projects" Association="Self.FK_sprints_projects">
+      <End Role="projects" EntitySet="projects" />
+      <End Role="sprints" EntitySet="sprints" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tags_issues" Association="Self.FK_Tags_issues">
+      <End Role="issues" EntitySet="issues" />
+      <End Role="Tags" EntitySet="Tags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tags_projects" Association="Self.FK_Tags_projects">
+      <End Role="projects" EntitySet="projects" />
+      <End Role="Tags" EntitySet="Tags" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

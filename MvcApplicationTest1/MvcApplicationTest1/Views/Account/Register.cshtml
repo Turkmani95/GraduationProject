@@ -1,0 +1,94 @@
+﻿@model MvcApplicationTest1.Models.RegisterModel
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new account.</h4>
+    <hr />
+    
+    <h4 style="color:red">@ViewBag.error</h4>
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.UserName)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Password)
+
+
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+
+
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.email)
+        </div>
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.mobilenum, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.mobilenum, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.mobilenum)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.roletype, new { @class = "col-md-2 control-label" })
+
+        @{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+         {
+             Text = "Developer",
+             Value = "developer"
+         });
+    listItems.Add(new SelectListItem
+         {
+             Text = "Project Owner",
+             Value = "projectowner"
+
+         });
+    listItems.Add(new SelectListItem
+         {
+             Text = "Scrum Master",
+             Value = "teamleader"
+         });
+        }
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.roletype, listItems, "Select Role", new {@class="form-control" })
+            @Html.ValidationMessageFor(m => m.roletype)
+            </div>
+        </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Register" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

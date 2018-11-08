@@ -1,0 +1,61 @@
+﻿@model IEnumerable<MvcApplicationTest1.DAL.Comment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<link type="text/css" rel="stylesheet" href="~/content/comments.css " />
+<h2>Comments</h2>
+<div class='container'>
+    <div class="row">
+        <div class="col-sm-12">
+           
+        </div><!-- /col-sm-12 -->
+    </div><!-- /row -->
+
+    <div class="row">
+        @Html.Action("Create", "Comments", new { pid = ViewBag.pid, isid = ViewBag.isid })       
+    </div>
+
+
+    @foreach (var item in Model)
+{
+
+    <div class="row">
+        <div class="col-sm-1">
+            <div class="thumbnail">
+                <img class="img-responsive user-photo" src="\Content\avatar.png">
+            </div><!-- /thumbnail -->
+        </div><!-- /col-sm-1 -->
+        <div class="col-sm-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>@item.username</strong> <span class="text-muted">commented in @item.date</span>
+                </div>
+                <div class="panel-body" style="word-break: break-all; word-wrap: break-word;">
+                    @item.comment1
+                </div><!-- /panel-body -->
+            </div><!-- /panel panel-default -->
+        </div><!-- /col-sm-5 -->
+    </div><!-- /row -->
+
+            @*<div class="media comment-box">
+            <div class="media-left">
+                <a href="#">
+                    <img class="img-responsive user-photo" width="50px" height="50px" src="\Content\avatar.png">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">@item.username commented in @item.date </h4>
+                <p>@item.comment1</p>
+
+            </div>
+        </div>*@
+
+        
+       
+        
+}
+</div>
+
+

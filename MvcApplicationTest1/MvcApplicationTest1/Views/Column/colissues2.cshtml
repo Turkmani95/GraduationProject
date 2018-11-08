@@ -1,0 +1,11 @@
+﻿@model IEnumerable<MvcApplicationTest1.DAL.issue>
+
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.descreption)
+        </td>
+
+    </tr>}

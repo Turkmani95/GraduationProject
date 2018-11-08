@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5a5b0e5db3fe4cd6b1940e1d6f02eb58" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="ftestModel.activitystream" Width="1.5" PointX="7.5" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ftestModel.column" Width="1.5" PointX="2.75" PointY="6.375" IsExpanded="true" />
+        <AssociationConnector Association="ftestModel.FK_activitystream_activitystream" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ftestModel.project" Width="1.5" PointX="0.875" PointY="8.125" />
+        <EntityTypeShape EntityType="ftestModel.issue" Width="1.5" PointX="5.25" PointY="7.125" />
+        <AssociationConnector Association="ftestModel.FK_issues_columns" />
+        <AssociationConnector Association="ftestModel.FK_issues_projects" />
+        <AssociationConnector Association="ftestModel.FK_columns_projects" />
+        <EntityTypeShape EntityType="ftestModel.sprint" Width="1.5" PointX="3" PointY="11.5" />
+        <AssociationConnector Association="ftestModel.FK_issues_sprints" />
+        <AssociationConnector Association="ftestModel.FK_projects_sprints" />
+        <AssociationConnector Association="ftestModel.FK_sprints_projects" />
+        <EntityTypeShape EntityType="ftestModel.pojectdev" Width="1.5" PointX="12.375" PointY="11.25" />
+        <AssociationConnector Association="ftestModel.FK_pojectdevs_projects" />
+        <EntityTypeShape EntityType="ftestModel.Comment" Width="1.5" PointX="9.625" PointY="11.25" />
+        <EntityTypeShape EntityType="ftestModel.Tag" Width="1.5" PointX="13.375" PointY="8.375" />
+        <AssociationConnector Association="ftestModel.FK_Tags_issues" />
+        <AssociationConnector Association="ftestModel.FK_Tags_projects" />
+        <EntityTypeShape EntityType="ftestModel.attachment" Width="1.5" PointX="10.5" PointY="8.25" />
+        <AssociationConnector Association="ftestModel.FK_attachment_issues" />
+        <AssociationConnector Association="ftestModel.FK_attachment_projects" />
+        <AssociationConnector Association="ftestModel.FK_Comments_issues" />
+        <AssociationConnector Association="ftestModel.FK_Comments_projects" />
+        <AssociationConnector Association="ftestModel.FK_issues_issues" />
+        <AssociationConnector Association="ftestModel.FK_projects_projects" />
+        <AssociationConnector Association="ftestModel.FK_activitystream_issues" />
+        <AssociationConnector Association="ftestModel.FK_activitystream_projects" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

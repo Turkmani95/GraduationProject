@@ -1,0 +1,51 @@
+﻿@model MvcApplicationTest1.DAL.issue
+@{
+    ViewBag.Title = "assignissuemaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Assign Issue @ViewBag.IssueName To A Developer</h2>
+
+@using (Html.BeginForm("assignissuemaster", "issues", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+
+
+    <div class="form-group">
+        @*@Html.EditorFor(model => model.devname)
+            @Html.ValidationMessageFor(model => model.devname)*@
+        <label class="col-md-2 control-label">Developers</label>
+        @Html.DropDownListFor(model => model.assignee, (IEnumerable<SelectListItem>)ViewBag.Usersqq, new { @class = "form-control" })
+    
+
+    </div>
+
+    @*<div class="editor-label">
+            @Html.LabelFor(model => model.projectid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.projectid)
+            @Html.ValidationMessageFor(model => model.projectid)
+        </div>*@
+    @Html.HiddenFor(model => model.projectid)
+    @Html.HiddenFor(model => model.priority)
+    @Html.HiddenFor(model => model.keyname)
+    @Html.HiddenFor(model => model.sprintid)
+    @Html.HiddenFor(model => model.status)
+    @Html.HiddenFor(model => model.type)
+    @Html.HiddenFor(model => model.estimate)
+    @Html.HiddenFor(model => model.id)
+    
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Assign" />
+            <a class="btn btn-primary inline" href="@Url.Action("Details", "issues", new { id = Model.id }, null)">Back To Issue Details</a>
+        </div>
+    </div>
+}
+
+

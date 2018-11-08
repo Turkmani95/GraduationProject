@@ -1,0 +1,29 @@
+﻿@model MvcApplicationTest1.DAL.pojectdev
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>pojectdev</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.devname)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.devname)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.projectid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.projectid)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

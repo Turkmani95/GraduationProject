@@ -1,0 +1,123 @@
+﻿@model MvcApplicationTest1.Models.AgileClass
+@{
+    ViewBag.Title = "AgileBoard";
+    Layout = "~/Views/Shared/_test.cshtml";
+}
+
+
+
+<script>
+    $(document).ready(function () {
+        $(".Sortable").sortable({
+            connectWith: ".connectedSortable",
+            update: function (event, ui) {
+                var itemIds = "";
+                $("#Sortable").find(".taskSingleInline").each(function () {
+                    var itemId = $(this).attr("data-issueid");
+                    itemIds = itemIds + itemId + ",";
+                });
+
+                $.ajax({
+                    url: '@Url.Action("UpdateIssuesAjax", "Column")',
+                    data: { itemIds : itemIds },
+                    type: 'POST',
+                    success: function (data) { },
+                    error: function (xhr, status, error) { }
+                })
+
+            }
+        });
+
+    });
+</script>
+<style>
+    .Sortable {
+        border: 1px solid #eee;
+        width: 142px;
+        min-height: 20px;
+        list-style-type: none;
+        margin: 0;
+        padding: 5px 0 0 0;
+        float: left;
+        margin-right: 10px;
+    }
+
+        .Sortable li {
+            margin: 0 5px 5px 5px;
+            padding: 5px;
+            font-size: 1.2em;
+            width: 120px;
+        }
+
+    .inline {
+        display: inline-block;
+    }
+</style>
+
+
+
+<h2>Agile Boards of Project @ViewBag.projectid</h2>
+<div class="dd">
+
+    <div class="container">
+        <div id="Sortable" class="dd" style="cursor:pointer">
+
+            @{     int i = 1;
+                 foreach (var item in Model.Columns)
+                 {
+
+                     //  var column = Model.Columns.Where(m => m.colid == i);
+                    <ol class="list-group items connectedSortable Sortable kanban To-do">
+                        <h2 hidden class="list-group-items taskSingleInline" id="0" data-issueid="0"></h2>
+
+                        <h2 class="list-group-items taskSingleInline kanban__title" id="@(item.colid)" data-issueid="@(item.colid)">@item.name</h2>
+
+
+
+
+                        @foreach (var item1 in Model.issues.Where(m => m.status == item.colid))
+                        {
+
+
+
+
+                            <li class="list-group-item taskSingleInline dd-item" id="issue@(item1.id)" data-issueid="@(item1.id)">
+                                <h3 class="title"> @Html.ActionLink(Html.DisplayFor(modelItem => item1.keyname).ToHtmlString(), "details", "issues", new { id = item1.id }, null)</h3>
+                                <div class="text" contenteditable="true">  @Html.DisplayFor(modelItem => item1.descreption)</div>
+                                <i class="material-icons" id="label blue">label</i>
+                                <div class="actions">
+                                    <i class="material-icons" id="color">palette</i><i class="material-icons">edit</i><i class="material-icons">insert_link</i><i class="material-icons">attach_file</i>
+                                </div>
+
+                            </li>
+
+
+                        }
+                    </ol>
+
+
+                        i++;
+                 }
+
+            }
+        </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <a class="btn btn-primary" href="@Url.Action("Indexproject", "Column", new { id = ViewBag.pid })">Update Positions</a>
+
+
+
+
+
+    </div>
+
+

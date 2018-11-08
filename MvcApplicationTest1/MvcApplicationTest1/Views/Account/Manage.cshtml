@@ -1,0 +1,56 @@
+﻿@model MvcApplicationTest1.Models.LocalPasswordModel
+@{
+    ViewBag.Title = "Manage Account";
+}
+
+
+<link type="text/css" rel="stylesheet" href="~/content/fieldset.css " />
+<div class="container">
+    <br />
+    <div class="panel panel-default">
+
+        <div class="panel-heading" style="word-break: break-all; word-wrap: break-word;">
+
+            <br />
+            <p>
+                <a class="btn btn-primary inline" href="@Url.Action("VIewProfilePage","Account")">My Account</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("Viewprojects","project")">Projects</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("ViewIssues", "issues", new { name = Session["UserName"] })">Issues</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("Index", "activitystream", new { sid = -1, pid = -1, usid = int.Parse(Session["UserId"] + "") }, null)">Activity Stream</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("updateprofilepage", "Account")">Update Account Information</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("Manage", "Account")">Change Password</a>
+
+
+            </p>
+
+        </div>
+        <div class="panel-body">
+            <p class="message-success">@ViewBag.StatusMessage</p>
+
+
+            @if (ViewBag.HasLocalPassword)
+            {
+                @Html.Partial("_ChangePasswordPartial")
+            }
+            else
+            {
+                @Html.Partial("_SetPasswordPartial")
+            }
+
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,110 @@
+﻿@model MvcApplicationTest1.Models.UserProfile
+
+@{
+    ViewBag.Title = "updateprofilepage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link type="text/css" rel="stylesheet" href="~/content/fieldset.css " />
+<div class="container">
+    <br />
+    <div class="panel panel-default">
+  
+        <div class="panel-heading" style="word-break: break-all; word-wrap: break-word;">
+
+            <br />
+            <p>
+                <a class="btn btn-primary inline" href="@Url.Action("VIewProfilePage","Account")">My Account</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("Viewprojects","project")">Projects</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("ViewIssues", "issues", new { name = Session["UserName"] })">Issues</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("Index", "activitystream", new { sid = -1, pid = -1, usid = int.Parse(Session["UserId"] + "") }, null)">Activity Stream</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("updateprofilepage", "Account")">Update Account Information</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("Manage", "Account")">Change Password</a>
+
+
+            </p>
+
+        </div>
+        <div class="panel-body">
+
+            @using (Html.BeginForm("updateprofile", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <br />
+                <h3>Update Account Information</h3>
+                <hr />
+                @Html.ValidationSummary()
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">E-Mail</label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.email, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Mobile Number</label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.mobilenum, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                    @Html.LabelFor(m => m.roletype, new { @class = "col-md-2 control-label" })
+
+                    @{
+                List<SelectListItem> listItems = new List<SelectListItem>();
+                listItems.Add(new SelectListItem
+                     {
+                         Text = "Developer",
+                         Value = "developer",
+                         Selected = true
+                     });
+                listItems.Add(new SelectListItem
+                     {
+                         Text = "Project Owner",
+                         Value = "projectowner"
+
+                     });
+                listItems.Add(new SelectListItem
+                     {
+                         Text = "Team Leader",
+                         Value = "teamleader"
+                     });
+                    }
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.roletype, listItems, "Select Role", new { @class = "form-control" })
+                    </div>
+                </div>*@
+                
+                @Html.HiddenFor(model => model.roletype);
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-default" value="Update" />
+                        <a class="btn btn-primary inline" href="@Url.Action("Index","Home")">Back To Home Page</a>
+
+
+                    </div>
+                </div>
+            }
+
+
+
+
+        </div>
+        </div>
+    
+    </div>
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<MvcApplicationTest1.DAL.column>
+
+@{
+    ViewBag.Title = "Agile Boards";
+}
+
+
+<br />
+<br />
+
+<h2>Agile Boards of Sprint @ViewBag.currentsp</h2>
+
+
+<div>
+    @foreach (var item in Model)
+    {
+        <table width="100" border="1" style="float: left">
+            <tr>
+                <th>
+                    @Html.DisplayFor(modelItem => item.name)
+                </th>
+
+            </tr>
+
+            @Html.Action("colissues2", "Column", new { projid = ViewBag.projectid, colid = item.colid, currsp = ViewBag.currentsp })
+
+
+        </table>
+    }
+
+</div>

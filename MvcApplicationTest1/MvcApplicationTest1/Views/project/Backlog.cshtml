@@ -1,0 +1,97 @@
+﻿@model IEnumerable<MvcApplicationTest1.DAL.issue>
+
+@{
+    ViewBag.Title = "Backlog";
+}
+
+<h2>BackLog</h2>
+
+
+<table id="Appuser" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.keyname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.descreption)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.priority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tags)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.estimate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.assignee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.rankid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sprintid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.projectid)
+            </th>
+            
+        </tr>
+    </thead>
+    
+        @foreach (var item in Model)
+{
+  
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.keyname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descreption)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.priority)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tags)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estimate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.assignee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.rankid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sprintid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.projectid)
+            </td>
+            <td>
+                @Html.ActionLink("Add to Current Sprint", "addtocurrentsprint", "project", new { issueid = item.id }, null)
+            </td>
+
+        </tr>
+    
+}
+    
+</table>
+
+

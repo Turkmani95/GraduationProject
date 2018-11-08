@@ -1,0 +1,10 @@
+﻿@model IEnumerable<MvcApplicationTest1.DAL.issue>
+
+
+@foreach (var item in Model) {
+<tr>
+    <td>        
+        @Html.ActionLink("-", "prevcol", "Column", new { issueid = item.id }, null)@Html.ActionLink(Html.DisplayFor(modelItem => item.descreption).ToHtmlString(), "details", "issues", new { id = item.id }, null)@Html.ActionLink("+", "nextcol", "Column", new { issueid = item.id }, null)
+    </td>
+
+</tr>}

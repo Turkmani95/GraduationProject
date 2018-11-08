@@ -1,0 +1,313 @@
+﻿@model MvcApplicationTest1.DAL.issue
+
+@{
+    ViewBag.Title = "Details";
+}
+<link type="text/css" rel="stylesheet" href="~/content/fieldset.css " />
+
+<div class="container">
+    <br />
+    <div class="panel panel-default">
+
+        <div class="panel-heading" style="word-break: break-all; word-wrap: break-word;">
+            <h2>Issue @Html.DisplayFor(model => model.descreption) Details</h2>
+            <h3 style="color : red">@ViewBag.errormsg</h3>
+            <br />
+            <p>
+                @if ( (Model.assignee != null && Convert.ToString(Session["UserName"]) == Model.assignee))
+                {
+                <a class="btn btn-primary inline" href="@Url.Action("Edit", new { id = Model.id })">Edit</a>
+                }
+                @*<button type="button" class="btn btn-primary">@Html.ActionLink("Edit", "Edit", new { id = Model.id })</button>*@
+                @*@if (User.IsInRole("teamleader") || User.IsInRole("admin") )
+    {
+        <a class="btn btn-primary inline" href="@Url.Action("Delete", new { id = Model.id })">Delete</a>*@
+                @*<button type="button" class="btn btn-primary">@Html.ActionLink("Delete", "Delete", new { id = Model.id })</button>*@
+                @*}*@
+                <a class="btn btn-primary inline" href="@Url.Action("index", "ActivityStream", new { isid = Model.id }, null)">View Activity Stream of this issue</a>
+                @*<button type="button" class="btn btn-primary">@Html.ActionLink("View Activity Stream of this issue", "index", "ActivityStream", new { isid = Model.id }, null)</button>*@
+              @if (Model.assignee != null && Convert.ToString(Session["UserName"]) == Model.assignee)
+              {
+                   <a class="btn btn-primary inline" href="@Url.Action("unassigneissue", new { id = Model.id })">UnAssigne</a>
+                   @*<button type="button" class="btn btn-primary">@Html.ActionLink("UnAssigne", "unassigneissue", new { id = Model.id })</button>*@
+
+
+              }
+                @if (User.IsInRole("teamleader") && Model.assignee != null)
+                {
+                    <a class="btn btn-primary inline" href="@Url.Action("unassignissuemaster", new { id = Model.id })">UnAssign From Developer</a>
+                    @*<button type="button" class="btn btn-primary">@Html.ActionLink("Assign to me", "assigneissue", new { id = Model.id })</button>*@
+
+                }
+                  @if (User.IsInRole("developer") && Model.assignee == null)
+                { 
+                      <a class="btn btn-primary inline" href="@Url.Action("assigneissue", new { id = Model.id })">Assign to me</a>
+                     @*<button type="button" class="btn btn-primary">@Html.ActionLink("Assign to me", "assigneissue", new { id = Model.id })</button>*@
+                
+                }
+                @if (User.IsInRole("teamleader") && Model.assignee == null)
+                {
+                    <a class="btn btn-primary inline" href="@Url.Action("assignissuemaster", new { id = Model.id })">Assign to Developer</a>
+                    @*<button type="button" class="btn btn-primary">@Html.ActionLink("Assign to me", "assigneissue", new { id = Model.id })</button>*@
+
+                }
+                <a class="btn btn-primary inline" href="@Url.Action("indexproject", "Column", new { id = Model.projectid }, null)">Back to Agile Board</a>
+                @*<button type="button" class="btn btn-primary">@Html.ActionLink("Back to Agile Board", "indexproject", "Column", new { id = Model.projectid }, null)</button>*@
+                
+               
+            </p>
+
+        </div>
+        <div class="panel-body">
+
+            <fieldset class="col-md-6">
+                <legend>Key Name</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body" style="word-break: break-all; word-wrap: break-word;">
+                        <p class="lead">@Html.DisplayFor(model => model.keyname)</p>
+                    </div>
+                </div>
+
+            </fieldset>          
+            <div class="clearfix"></div>
+
+            <fieldset class="col-md-6">
+                <legend>Status</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body" style="word-break: break-all; word-wrap: break-word;">
+                        <p class="lead">@Html.Action("StatusName", "Column", new { id = Model.status })</p>
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+           
+            <fieldset class="col-md-6">
+                <legend>Description</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body" style="word-break: break-all; word-wrap: break-word;">
+                        <p class="lead">@Html.DisplayFor(model => model.descreption)</p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+
+            <fieldset class="col-md-6">
+                <legend>Type</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body" style="word-break: break-all; word-wrap: break-word;">
+                        <p class="lead">@Html.DisplayFor(model => model.type)</p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+            <fieldset class="col-md-6">
+                <legend>priority</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body" style="word-break: break-all; word-wrap: break-word;">
+                        <p class="lead">@Html.Action("priorityName", "issues", new { id = Model.priority })</p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+            <fieldset class="col-md-6">
+                <legend>Tags</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="lead">@Html.Action("Index", "Tags", new { pid = Model.projectid, isid = Model.id })</p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+            <fieldset class="col-md-6">
+                <legend>Estimate</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        @if (Model.estimate.HasValue)
+                        {
+                            <p class="lead">@Html.DisplayFor(model => model.estimate) Hours</p>
+                           
+                        }
+                        else
+                        {
+                            <p class="lead">
+                                - Hours
+                            </p>
+
+                        }
+                        
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+
+            <fieldset class="col-md-6">
+                <legend>Project</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="lead">@Html.Action("projectName", "project", new { id = Model.projectid })</p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+
+            <fieldset class="col-md-6">
+                <legend>Sprint</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="lead">@Html.Action("ViewSprintNumber", "project", new { id = Model.sprintid })</p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+
+            <fieldset class="col-md-6">
+                <legend>Assignee</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="lead">@Html.DisplayFor(model => model.assignee)</p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+
+            <fieldset class="col-md-6">
+                <legend>Attachments</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="lead">@Html.Action("Index", "attachment", new { pid = Model.projectid, isid = Model.id })</p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+
+
+        </div>
+
+    </div>
+</div>
+@*<fieldset>
+    <div class="display-label">
+        <h3>- Key Name</h3>
+    </div>
+    <div class="display-field">
+      <p class="lead" >@Html.DisplayFor(model => model.keyname)</p>
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.status)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.status)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.descreption)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.descreption)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.type)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.type)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.priority)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.priority)
+    </div>
+
+    <div class="display-label">
+       <h3>Tags</h3> 
+    </div>
+    <div class="display-field">
+        @Html.Action("Index", "Tags", new { pid = Model.projectid , isid = Model.id})
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.estimate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.estimate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.assignee)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.assignee)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.rankid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.rankid)
+    </div>
+
+    <div class="display-label">
+      <h3>Attachments</h3> 
+    </div>
+    <div class="display-field">
+        @Html.Action("Index","attachment",new { pid = Model.projectid , isid = Model.id})
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.sprintid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.sprintid)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.projectid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.projectid)
+    </div>
+</fieldset>*@
+<p>
+    @ViewBag.errormsg
+</p>
+<div>
+
+    @Html.Action("Index", "comments", new { pid = Model.projectid , isid = Model.id})
+
+</div>
+

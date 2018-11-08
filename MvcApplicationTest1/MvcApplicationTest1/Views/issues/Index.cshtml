@@ -1,0 +1,86 @@
+﻿@model IEnumerable<MvcApplicationTest1.DAL.issue>
+
+@{
+    ViewBag.Title = "Index";
+}
+<script>
+    $(document).ready(function () {
+        $("#Appuser").DataTable({
+            language: {
+                paginate: {
+                    next: '&#8594;', // or '→'
+                    previous: '&#8592;' // or '←'
+                }
+            }
+        });
+    })
+</script>
+
+
+<h2>@ViewBag.search</h2>
+
+<table id="Appuser" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Key Name
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Priority
+            </th>
+            <th>
+                Project
+            </th>
+            <th>
+                Sprint
+            </th>
+            <th>
+                Assignee
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(Html.DisplayFor(modelItem => item.keyname).ToHtmlString(), "details", "issues", new { id = item.id }, null)
+                </td>
+                <td>
+                    @Html.Action("StatusName", "Column", new { id = item.status })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.descreption)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.type)
+                </td>
+                <td>
+                    @Html.Action("priorityName", "issues", new { id = item.priority })
+                </td>
+
+                <td>
+                    @Html.Action("projectName", "project", new { id = item.projectid })
+                </td>
+                <td>
+                    @Html.Action("ViewSprintNumber", "project", new { id = item.sprintid })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.assignee)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+<a class="btn btn-primary inline" href="@Url.Action("indexproject", "Column", new { id = ViewBag.pid }, null)">Back to Agile Board</a>

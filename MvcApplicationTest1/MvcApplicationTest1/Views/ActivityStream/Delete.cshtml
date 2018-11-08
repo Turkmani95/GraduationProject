@@ -1,0 +1,75 @@
+﻿@model MvcApplicationTest1.DAL.activitystream
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>activitystream</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.issueid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.issueid)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.userid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.userid)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.actiontype)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.actiontype)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.issuekey)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.issuekey)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.actiondate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.actiondate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.projectid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.projectid)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.attachment)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.attachment)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

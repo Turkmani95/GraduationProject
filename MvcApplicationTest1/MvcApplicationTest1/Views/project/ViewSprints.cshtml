@@ -1,0 +1,69 @@
+﻿@model IEnumerable<MvcApplicationTest1.DAL.sprint>
+
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2>Sprints of Project @Html.Action("projectName", "project", new { id = @ViewBag.projid })</h2>
+
+@*<p>
+    @Html.ActionLink("Back to Agile Board", "indexproject", "Column", new { id = @ViewBag.projid }, null)
+</p>*@
+
+<table id="Appuser" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Sprint Number
+            </th>
+            <th>
+                Date
+            </th>
+
+            <th>
+                Number of issues
+            </th>
+            <th>
+                Estimated
+            </th>
+
+         
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(Html.DisplayFor(modelItem => item.number).ToHtmlString(), "indexproject2", "Column", new { id = item.projectid, sprintnum = item.sid }, null)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.date)
+                </td>
+
+                <td>
+                    @Html.Action("ViewSprintissuenumber", "project", new { id = item.sid })
+                </td>
+                <td>
+                    @Html.Action("ViewSprintEstimated", "project", new { id = item.sid }) Hours
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-primary inline" href="@Url.Action("indexproject", "Column", new { id = @ViewBag.projid }, null)">Back To Agile Board</a>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#Appuser").DataTable();
+        })
+    </script>
+}

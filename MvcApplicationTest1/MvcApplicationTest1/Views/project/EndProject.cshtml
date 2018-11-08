@@ -1,0 +1,159 @@
+﻿@model MvcApplicationTest1.DAL.project
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<link type="text/css" rel="stylesheet" href="~/content/fieldset.css " />
+
+<div class="container">
+    <br />
+    <div class="panel panel-default">
+
+        <div class="panel-heading" style="word-break: break-all; word-wrap: break-word;">
+            <h2>Details of The Project @Html.DisplayFor(model => model.projectname)</h2>
+            <h3 style="color : red">@ViewBag.errormsg</h3>
+            <br />
+           
+
+        </div>
+        <div class="panel-body">
+
+            <fieldset class="col-md-6">
+                <legend>Project Name</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body" style="word-break: break-all; word-wrap: break-word;">
+                        <p class="lead">@Html.DisplayFor(model => model.projectname)</p>
+                    </div>
+                </div>
+
+            </fieldset>
+            <div class="clearfix"></div>
+
+            <fieldset class="col-md-6">
+                <legend>Project Key</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body" style="word-break: break-all; word-wrap: break-word;">
+                        <p class="lead">@Html.DisplayFor(model => model.projectkey)</p>
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+
+            <fieldset class="col-md-6">
+                <legend>Project Date</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body" style="word-break: break-all; word-wrap: break-word;">
+                        <p class="lead">@Html.DisplayFor(model => model.date)</p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+
+            <fieldset class="col-md-6">
+                <legend>Project Owner</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body" style="word-break: break-all; word-wrap: break-word;">
+                        <p class="lead">@Html.DisplayFor(model => model.projectowner)</p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+            <fieldset class="col-md-6">
+                <legend>project Leader</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body" style="word-break: break-all; word-wrap: break-word;">
+                        <p class="lead">@Html.DisplayFor(model => model.projectleader)</p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+            <fieldset class="col-md-6">
+                <legend>Status</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="lead">@Html.DisplayFor(model => model.status)</p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+            <fieldset class="col-md-6">
+                <legend>Number Of Issues</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="lead">@ViewBag.numofissues</p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+
+            <fieldset class="col-md-6">
+                <legend>Number Of Unfinished Issues</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="lead">@ViewBag.numofunfinishedissues</p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+
+            <fieldset class="col-md-6">
+                <legend>Number of Sprints</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="lead"><a class="" href="@Url.Action("ViewSprints", "Project", new { id = Model.id }, null)">@ViewBag.numofsprints</a>  </p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+
+         
+
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+<p>
+    <a class="btn btn-primary inline" href="@Url.Action("Index", "project")">Back to Projects List</a> 
+   
+</p>
+<div>
+    @Html.Action("Index", "Comments", new { pid = Model.id, isid = 4 })
+
+</div>
+

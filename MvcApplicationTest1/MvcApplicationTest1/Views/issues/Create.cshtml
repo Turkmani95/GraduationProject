@@ -1,0 +1,134 @@
+﻿@model MvcApplicationTest1.DAL.issue
+
+@{
+    ViewBag.Title = "Create";
+}
+<br />
+
+<h2>Create New Issue</h2>
+<hr />
+@using (Html.BeginForm("Create", "issues", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+   
+
+    
+        
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Key Name</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.keyname, new { @maxlength="15", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.keyname)
+                <p style="color:red">@ViewBag.errormsg</p>  
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Description</label>
+            <div class="col-md-10">
+                @Html.TextAreaFor(m => m.descreption, new { @class = "form-control", Style = " max-width: 280px; word-wrap: break-word;" })
+                @Html.ValidationMessageFor(model => model.descreption)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Type</label>
+            <div class="col-md-10">
+                @{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+   
+    listItems.Add(new SelectListItem
+         {
+             Text = "User Story",
+             Value = "User Story"
+
+         });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Bug",
+        Value = "Bug"
+
+    });
+}
+
+    @Html.DropDownListFor(model => model.type, listItems, "Select Issue Type", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.type)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-md-2 control-label">Priority</label>
+            <div class="col-md-10">
+                
+
+                    @{
+    List<SelectListItem> listI2 = new List<SelectListItem>();
+    listI2.Add(new SelectListItem
+         {
+             Text = "High",
+             Value = "High"
+
+         });
+    listI2.Add(new SelectListItem
+         {
+             Text = "Medium",
+             Value = "Medium"
+
+         });
+    listI2.Add(new SelectListItem
+    {
+        Text = "Low",
+        Value = "Low"
+
+
+    });
+
+                    }
+
+                    @Html.DropDownListFor(model => model.priority, listI2, "Select Issue Priority", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.priority)
+                </div>
+
+        </div>
+
+    if (User.IsInRole("teamleader") || User.IsInRole("developer"))
+        {  
+        <div class="form-group">
+            <label class="col-md-2 control-label">Estimate</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.estimate, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.estimate)
+            </div>
+        </div>
+        }
+            if (User.IsInRole("teamleader") )
+        { 
+        <div class="form-group">
+            <label class="col-md-2 control-label">Assignee</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.assignee, (SelectList)ViewBag.usersq, "Select Developer", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.assignee)
+            </div>
+        </div>
+}
+       @Html.HiddenFor(model => model.projectid, new { @Value = ViewBag.projid })
+
+
+      
+ 
+          <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Create" />
+          
+            <a class="btn btn-primary inline" href="@Url.Action("indexproject", "Column", new { id = @ViewBag.projid }, null)">Back To Agile Board</a>
+        </div>
+    </div>
+    
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

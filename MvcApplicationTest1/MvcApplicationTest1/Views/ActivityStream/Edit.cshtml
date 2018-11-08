@@ -1,0 +1,94 @@
+﻿@model MvcApplicationTest1.DAL.activitystream
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>activitystream</legend>
+
+        @Html.HiddenFor(model => model.id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.issueid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.issueid)
+            @Html.ValidationMessageFor(model => model.issueid)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.userid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.userid)
+            @Html.ValidationMessageFor(model => model.userid)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.actiontype)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.actiontype)
+            @Html.ValidationMessageFor(model => model.actiontype)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.issuekey)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.issuekey)
+            @Html.ValidationMessageFor(model => model.issuekey)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.actiondate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.actiondate)
+            @Html.ValidationMessageFor(model => model.actiondate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.description)
+            @Html.ValidationMessageFor(model => model.description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.projectid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.projectid)
+            @Html.ValidationMessageFor(model => model.projectid)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.attachment)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.attachment)
+            @Html.ValidationMessageFor(model => model.attachment)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,121 @@
+﻿@model IEnumerable<MvcApplicationTest1.DAL.issue>
+@{
+    ViewBag.Title = "View1";
+  
+}
+
+
+<script>
+  
+    $(document).ready(function () {
+        $("#Appuser").DataTable({
+            language: {
+                paginate: {
+                    next: '&#8594;', // or '→'
+                    previous: '&#8592;' // or '←' 
+                }
+            }, order: [[3, "asc"]]
+        });
+    });
+
+   
+</script>
+
+
+<h2>BackLog</h2>
+
+<p>
+    
+
+    @Html.ActionLink("Create New Issue", "Create", "issues", new { id = ViewBag.projiid }, new {@class = "btn btn-primary" })
+    
+</p>
+<p style="color:red"> @ViewBag.errormsg</p>
+
+<table id="Appuser" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+              Key Name
+            </th>
+          
+            <th>
+               Description
+            </th>
+            <th>
+              Type
+            </th>
+            <th>
+                Priority
+            </th>
+           
+            <th>
+                Estimate
+            </th>
+          
+            
+           
+            <th>
+               Project
+            </th>
+            <th>
+                *
+            </th>
+          
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in ViewBag.rresult)
+        {
+
+            <tr>
+                <td>
+                    <a  href="@Url.Action("details", "issues", new { id = item.id }, null)">@item.keyname</a>
+                    @*Html.ActionLink(Html.DisplayFor(modelItem => item.keyname).ToHtmlString(), "details", "issues", new { id = item.id }, null)*@
+                </td>
+              
+                <td>
+
+                    @item.descreption
+                </td>
+                <td>
+                    @item.type
+                </td>
+                <td data-order="@item.priority">
+                   @Html.Action("priorityName", "issues", new { id = item.priority })
+                </td>
+               @if (item.estimate != null) {  
+                    <td>
+                    @item.estimate Hours
+                </td>         
+               }
+               else { 
+                <td>
+                    - Hours
+                </td>   
+               
+               }
+             
+              
+                <td>
+                    @Html.Action("projectName", "project", new { id = item.projectid })
+                </td>
+                 
+                <td>
+                    @if (User.IsInRole("teamleader"))
+                                {
+                    @Html.ActionLink("Add to Current Sprint", "addtocurrentsprint", "project", new { issueid = item.id }, null)
+                                }           
+                </td>
+               
+
+            </tr>
+
+        }
+    </tbody>
+
+</table>
+
+

@@ -1,0 +1,128 @@
+﻿@model IEnumerable<MvcApplicationTest1.DAL.activitystream>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<script>
+    $(document).ready(function () {
+        $("#Appuser").DataTable({
+            language: {
+                paginate: {
+                    next: '&#8594;', // or '→'
+                    previous: '&#8592;' // or '←'
+                }
+            }, order: [[5, "desc"]]
+        });
+    })
+</script>
+@if (ViewBag.isuser == "y") { 
+
+    <div class="container">
+    <br />
+    <div class="panel panel-default">
+
+        <div class="panel-heading" style="word-break: break-all; word-wrap: break-word;">
+
+            <br />
+            <p>
+                <a class="btn btn-primary inline" href="@Url.Action("VIewProfilePage","Account")">My Account</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("Viewprojects","project")">Projects</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("ViewIssues", "issues", new { name = Session["UserName"] })">Issues</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("Index", "activitystream", new { sid = -1, pid = -1, usid = int.Parse(Session["UserId"] + "") }, null)">Activity Stream</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("updateprofilepage", "Account")">Update Account Information</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("Manage", "Account")">Change Password</a>
+
+            </p>
+
+        </div>
+      
+
+    </div>
+</div>
+
+
+
+}
+<h2>Activity Stream Of @ViewBag.pid</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table id="Appuser" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                User Name
+            </th>
+            <th>
+               Project
+            </th>
+            <th>
+                Issue Key
+            </th>
+            <th>
+               Action Type
+            </th>
+            <th>
+               Action Description
+            </th>
+            <th>
+              Date
+            </th>
+       
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.Action("Showusername", "ActivityStream", new { id = item.userid })
+                </td>
+                <td>
+                 
+                    <a class="" href="@Url.Action("indexproject", "Column", new { id = item.projectid }, null)">@Html.Action("projectName", "project", new { id = item.projectid })</a>
+                </td>
+                <td>
+                    @if (item.issuekey == "-") { @Html.DisplayFor(modelItem => item.issuekey) }
+                    else { @Html.ActionLink(Html.DisplayFor(modelItem => item.issuekey).ToHtmlString(), "details", "issues", new { id = item.issueid }, null)
+              }
+                     </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.actiontype)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.description)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.actiondate)
+                </td>
+              
+            
+            </tr>
+        }
+    </tbody>
+</table>
+@if (ViewBag.type == "issue") { 
+<a class="btn btn-primary inline" href="@Url.Action("Details", "issues", new { id = @ViewBag.id }, null)">Back to Issue Details</a>
+
+}
+@if (ViewBag.type == "project")
+{
+    <a class="btn btn-primary inline" href="@Url.Action("indexproject", "Column", new { id = @ViewBag.id }, null)">Back to Agile Board</a>
+
+}
+@if (ViewBag.type == "user") {
+<a class="btn btn-primary inline" href="@Url.Action("index", "home")">Back to Home Page</a>
+
+
+}

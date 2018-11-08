@@ -1,0 +1,59 @@
+﻿@model MvcApplicationTest1.DAL.Comment
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="row">
+    <div class="col-sm-1">
+        <div class="thumbnail">
+            <img class="img-responsive user-photo" src="\Content\avatar.png">
+        </div><!-- /thumbnail -->
+    </div><!-- /col-sm-1 -->
+    <div class="col-sm-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>Add Comment</strong>
+            </div>
+            <div class="panel-body" style="word-break: break-all; word-wrap: break-word;">
+                @using (Html.BeginForm("Createe","Comments",FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+
+
+
+
+                    @Html.HiddenFor(model => model.projectid, new { @Value = ViewBag.projectid })
+
+
+                    @Html.HiddenFor(model => model.issueid, new { @Value = ViewBag.isid })
+                                       <p>
+    @Html.TextAreaFor(model => model.comment1, new { @class = "panel-body", @Style = " width:400px !important;word-break: break-all; word-wrap: break-word;" })
+                                   </p>    
+                                            <p>
+                                               <input type="submit" value="Comment" />
+                                           </p>
+                   
+
+
+                    @Html.HiddenFor(model => model.username, new { @Value = ViewBag.username })
+
+
+                    @Html.HiddenFor(model => model.userid, new { @Value = ViewBag.userid })
+
+
+                   
+
+                }
+
+            </div><!-- /panel-body -->
+        </div><!-- /panel panel-default -->
+    </div><!-- /col-sm-5 -->
+</div>
+
+
+
+
+

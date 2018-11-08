@@ -1,0 +1,82 @@
+﻿@model IEnumerable<MvcApplicationTest1.DAL.issue>
+
+@{
+    ViewBag.Title = "Backlog";
+}
+
+<h2>Agile Board</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div>
+    <table width="100" border="1" style="float: left">
+        <tr>
+            <th>
+                col 1
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model.Where(x => x.status == 1))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.descreption)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+
+
+    <table width="100" border="1" style="float: left">
+        <tr>
+            <th>
+                col 2
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model.Where(x => x.status == 2))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.descreption)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+    
+
+    <table width="100" border="1" style="float: left">
+        <tr>
+            <th>
+                col 3
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model.Where(x => x.status == 3))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.descreption)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+
+    
+
+
+</div>

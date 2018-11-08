@@ -1,0 +1,70 @@
+﻿@model MvcApplicationTest1.DAL.Comment
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Comment</legend>
+
+        @Html.HiddenFor(model => model.id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.projectid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.projectid)
+            @Html.ValidationMessageFor(model => model.projectid)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.issueid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.issueid)
+            @Html.ValidationMessageFor(model => model.issueid)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.comment1)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.comment1)
+            @Html.ValidationMessageFor(model => model.comment1)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.username)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.username)
+            @Html.ValidationMessageFor(model => model.username)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.userid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.userid)
+            @Html.ValidationMessageFor(model => model.userid)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

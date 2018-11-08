@@ -1,0 +1,45 @@
+﻿@model MvcApplicationTest1.DAL.Tag
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Add Tag</h2>
+
+@using (Html.BeginForm("Create", "Tags", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    
+    <div class ="form-group">
+        <label class="col-md-2 control-label">Tag</label>
+        <div class="col-md-10">
+            
+                @Html.TextBoxFor(m => m.Tag1, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Tag1)
+            <p style="color:red">@ViewBag.errormsg </p>
+            
+        </div>
+    </div>
+
+        @Html.HiddenFor(model => model.projectid, new { @Value = ViewBag.pid })
+        @Html.HiddenFor(model => model.issueid, new { @Value = ViewBag.isid })
+       
+         
+
+       
+          <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Create" />
+          
+            <a class="btn btn-primary inline" href="@Url.Action("Details", "issues", new { id = @ViewBag.isid }, null)">Back To Issue Details</a>
+        </div>
+    </div>
+    
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

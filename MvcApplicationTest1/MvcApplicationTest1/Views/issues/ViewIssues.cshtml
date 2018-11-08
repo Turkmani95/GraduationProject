@@ -1,0 +1,126 @@
+﻿@model IEnumerable<MvcApplicationTest1.DAL.issue>
+@{
+    ViewBag.Title = "ViewIssues";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link type="text/css" rel="stylesheet" href="~/content/fieldset.css " />
+<script>
+    $(document).ready(function () {
+        $("#Appuser").DataTable({
+            language: {
+                paginate: {
+                    next: '&#8594;', // or '→'
+                    previous: '&#8592;' // or '←'
+                }
+            }
+        });
+    })
+</script>
+<div class="container">
+    <br />
+    <div class="panel panel-default">
+
+        <div class="panel-heading" style="word-break: break-all; word-wrap: break-word;">
+
+            <br />
+            <p>
+                <a class="btn btn-primary inline" href="@Url.Action("VIewProfilePage","Account")">My Account</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("Viewprojects","project")">Projects</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("ViewIssues", "issues", new { name = Session["UserName"] })">Issues</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("Index", "activitystream", new { sid = -1, pid = -1, usid = int.Parse(Session["UserId"] + "") }, null)">Activity Stream</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("updateprofilepage", "Account")">Update Account Information</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("Manage", "Account")">Change Password</a>
+
+            </p>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<h2>Issues</h2>
+
+<table id="Appuser" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Key Name
+            </th>
+      
+            <th>
+                Description
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Priority
+            </th>
+
+            <th>
+                Estimate
+            </th>
+
+
+
+            <th>
+               Project
+            </th>
+            
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.ActionLink(Html.DisplayFor(modelItem => item.keyname).ToHtmlString(), "details", "issues", new { id = item.id }, null)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.descreption)
+                </td>
+                <td>
+                    @Html.Action("StatusName", "Column", new { id = item.status })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.type)
+                </td>
+
+                <td>
+                   @Html.Action("priorityName", "issues", new { id = item.priority })
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.estimate)
+                </td>
+            
+                <td>
+                    @Html.Action("projectName", "project", new { id = item.projectid })
+                </td>
+            </tr>
+
+        }
+    </tbody>
+
+</table>
+
+<div>
+    <a class="btn btn-primary inline" href="@Url.Action("Index","Home")">Back To Home Page</a>
+
+
+</div>

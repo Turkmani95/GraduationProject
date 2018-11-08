@@ -1,0 +1,50 @@
+﻿@model MvcApplicationTest1.DAL.Comment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Comment</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.projectid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.projectid)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.issueid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.issueid)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.comment1)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.comment1)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.username)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.username)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.userid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.userid)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

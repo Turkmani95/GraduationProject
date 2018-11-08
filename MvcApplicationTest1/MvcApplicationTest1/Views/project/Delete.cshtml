@@ -1,0 +1,59 @@
+﻿@model MvcApplicationTest1.DAL.project
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>project</legend>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.projectname)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.projectname)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.projectkey)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.projectkey)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.date)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.date)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.projectowner)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.projectowner)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.projecttype)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.projecttype)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.projectleader)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.projectleader)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

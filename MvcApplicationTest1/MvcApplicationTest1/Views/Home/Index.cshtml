@@ -1,0 +1,250 @@
+﻿@model MvcApplicationTest1.Models.Dashboard
+<script>
+    $(document).ready(function () {
+        $(".Appuser").DataTable({
+            language: {
+                paginate: {
+                    next: '&#8594;', // or '→'
+                    previous: '&#8592;' // or '←'
+                }
+            },"order": [[ 5, "desc" ]]
+        });
+    })
+    $(document).ready(function () {
+        $(".Appuser2").DataTable({
+            language: {
+                paginate: {
+                    next: '&#8594;', // or '→'
+                    previous: '&#8592;' // or '←'
+                }
+            }
+        });
+    })
+</script>
+
+@if (!Request.IsAuthenticated)
+{
+<!-- Custom stlylesheet -->
+<link type="text/css" rel="stylesheet" href="Content/land.css" />
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!-- Header -->
+<header id="home">
+    <!-- Background Image -->
+    <div class="bg-img" style="background-image: url('./Content/imgs/header.jpg');">
+        <div class="overlay"></div>
+    </div>
+    <!-- /Background Image -->
+    <!-- home wrapper -->
+    <div class="home-wrapper">
+        <div class="container">
+           
+
+                <!-- home content -->
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="home-content">
+                        <h1 class="white-text">Trello lets you work more collaboratively and get more done.</h1>
+                        <p class="white-text">
+                            Trello’s boards, lists, and cards enable you to organize and prioritize your projects in a fun, flexible and rewarding way.
+                        </p>
+                        <button class="white-btn" onclick="location.href='@Url.Action( "Register", "Account")'">Register!</button>
+                        <button class="main-btn" onclick="location.href='@Url.Action( "login", "Account")'">Log in</button>
+                    </div>
+                </div>
+                <!-- /home content -->
+
+            
+        </div>
+    </div>
+    <!-- /home wrapper -->
+
+</header>
+<!-- /Header -->
+<!-- jQuery Plugins -->
+}else{
+         
+    @* if the user doesnt have any issues         *@
+    if (!Model.issues.Where(m => m.assignee == User.Identity.Name).Any())
+    {       <div class="container body-content"> 
+        <br />
+      
+      <h2>Assigned Issues</h2>
+     
+        <p>You Don't have any Assigned issue yet</p>
+             </div>
+    }
+    else
+    {    <div class="container body-content">
+        <br />
+      
+      <h2>Assigned Issues</h2>
+        @*Start of auth view*@
+
+             
+
+        <table class="table table-bordered table-hover Appuser2">
+            <thead>
+                <tr>
+                    <th>
+                        Key Name
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Priority
+                    </th>
+                    <th>
+                        Project
+                    </th>
+                    <th>
+                        Sprint
+                    </th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.issues.Where(m => m.assignee == User.Identity.Name))
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(Html.DisplayFor(modelItem => item.keyname).ToHtmlString(), "details", "issues", new { id = item.id }, null)
+                        </td>
+                        <td>
+                            @Html.Action("StatusName", "Column", new { id = item.status })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.descreption)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.type)
+                        </td>
+                        <td>
+                            @Html.Action("priorityName", "issues", new { id = item.priority })
+                        </td>
+
+                        <td>
+                            <a class="" href="@Url.Action("indexproject", "Column", new { id = item.projectid }, null)">
+                                @Html.Action("projectName", "project", new { id = item.projectid })
+                                </a>
+                        </td>
+                        <td>
+                            @Html.Action("ViewSprintNumber", "project", new { id = item.sprintid })
+                        </td>
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>    
+    }
+       @*  if the user is not in any project   *@ 
+    if (!Model.Projects.Any())
+    {   <div class="container body-content">
+        <hr />
+    <h2>Activity Stream Of Your Projects</h2>
+        
+        <p>You Are not part of any project Yet!!</p>
+        </div>
+    }
+
+    else
+    {   <div class="container body-content">
+        <hr />
+      <h2>Activity Stream Of Your Projects</h2>
+        
+        <table class="table table-bordered table-hover Appuser">
+            <thead>
+                <tr>
+                    <th>
+                        User Name
+                    </th>
+                    <th>
+                        Project
+                    </th>
+                    <th>
+                        Issue Key
+                    </th>
+                    <th>
+                        Action Type
+                    </th>
+                    <th>
+                        Action Description
+                    </th>
+                    <th>
+                        Date
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item1 in Model.Projects.ToList())
+                {
+
+                    //for selecting the activity stream for each project the user is in it
+                    foreach (var item in Model.Stream.Where(m => m.projectid == item1.projectid).ToList())
+                    {
+
+                        <tr>
+                            <td>
+                                @Html.Action("Showusername", "ActivityStream", new { id = item.userid })
+                            </td>
+                            <td>
+
+                                <a class="" href="@Url.Action("indexproject", "Column", new { id = item.projectid }, null)">
+                                    @Html.Action("projectName", "project", new { id = item.projectid })
+                                </a>
+                            </td>
+                            <td>
+                                @if (item.issuekey == "-")
+                                { @Html.DisplayFor(modelItem => item.issuekey) }
+                                else
+                                {
+                                    @Html.ActionLink(Html.DisplayFor(modelItem => item.issuekey).ToHtmlString(), "details", "issues", new { id = item.issueid }, null)
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.actiontype)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.description)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.actiondate)
+                            </td>
+
+
+                        </tr>
+
+                    }
+
+                }
+            </tbody>
+        </table>
+        <hr>
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+    }
+
+
+
+
+
+
+}

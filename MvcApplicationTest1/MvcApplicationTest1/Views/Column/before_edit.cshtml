@@ -1,0 +1,121 @@
+﻿@model MvcApplicationTest1.Models.AgileClass
+<script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $(".Sortable").sortable({
+            connectWith: ".connectedSortable",
+            update: function (event, ui) {
+                var itemIds = "";
+                $("#Sortable").find(".taskSingleInline").each(function () {
+                    var itemId = $(this).attr("data-issueid");
+                    itemIds = itemIds + itemId + ",";
+                });
+
+                $.ajax({
+                    url: '@Url.Action("UpdateIssuesAjax", "Column")',
+                    data: { itemIds : itemIds },
+                    type: 'POST',
+                    success: function (data) { },
+                    error: function (xhr, status, error) { }
+                })
+
+            }
+        });
+
+    });
+</script>
+
+<style>
+    .Sortable {
+        border: 1px solid #eee;
+        width: 142px;
+        min-height: 20px;
+        list-style-type: none;
+        margin: 0;
+        padding: 5px 0 0 0;
+        float: left;
+        margin-right: 10px;
+    }
+
+        .Sortable li {
+            margin: 0 5px 5px 5px;
+            padding: 5px;
+            font-size: 1.2em;
+            width: 120px;
+        }
+
+    .inline {
+        display: inline-block;
+    }
+</style>
+
+
+
+
+<div>
+    <h4>Agile Board</h4>
+    <hr />
+
+</div>
+
+
+
+<div class="container">
+
+
+
+
+    <div id="Sortable" style="cursor:pointer">
+
+        @{     int i = 1;
+             foreach (var item in Model.Columns)
+             {
+
+                 //  var column = Model.Columns.Where(m => m.colid == i);
+                <div class="inline">
+                    <h2 hidden class="list-group-items taskSingleInline" id="0" data-issueid="0"></h2>
+                    <h2 class="list-group-items taskSingleInline" id="@(item.colid)" data-issueid="@(item.colid)">@item.name</h2>
+
+                    <ul class="list-group items connectedSortable Sortable">
+                        @foreach (var item1 in Model.issues.Where(m => m.status == item.colid))
+                        {
+
+
+
+
+                            <li class="list-group-item taskSingleInline" id="issue@(item1.id)" data-issueid="@(item1.id)">
+                                @Html.ActionLink(Html.DisplayFor(modelItem => item1.descreption).ToHtmlString(), "details", "issues", new { id = item1.id }, null)
+                            </li>
+
+
+                        }
+                    </ul>
+                </div>
+
+                        i++;
+             }
+
+        }
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <a class="btn btn-primary" href="@Url.Action("Indexproject", "Column", new { id = ViewBag.pid })">Update Positions</a>
+
+
+
+
+
+</div>
+
+
+
+

@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ftestModelStoreContainer" CdmEntityContainer="ftestEntities">
+    <EntitySetMapping Name="activitystreams">
+      <EntityTypeMapping TypeName="ftestModel.activitystream">
+        <MappingFragment StoreEntitySet="activitystream">
+          <ScalarProperty Name="attachment" ColumnName="attachment" />
+          <ScalarProperty Name="projectid" ColumnName="projectid" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="issueid" ColumnName="issueid" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="actiontype" ColumnName="actiontype" />
+          <ScalarProperty Name="issuekey" ColumnName="issuekey" />
+          <ScalarProperty Name="actiondate" ColumnName="actiondate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="columns">
+      <EntityTypeMapping TypeName="ftestModel.column">
+        <MappingFragment StoreEntitySet="columns">
+          <ScalarProperty Name="projectid" ColumnName="projectid" />
+          <ScalarProperty Name="colid" ColumnName="colid" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="projects">
+      <EntityTypeMapping TypeName="ftestModel.project">
+        <MappingFragment StoreEntitySet="projects">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="currentsprint" ColumnName="currentsprint" />
+          <ScalarProperty Name="projectname" ColumnName="projectname" />
+          <ScalarProperty Name="projectleader" ColumnName="projectleader" />
+          <ScalarProperty Name="projecttype" ColumnName="projecttype" />
+          <ScalarProperty Name="projectowner" ColumnName="projectowner" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="projectkey" ColumnName="projectkey" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="issues">
+      <EntityTypeMapping TypeName="ftestModel.issue">
+        <MappingFragment StoreEntitySet="issues">
+          <ScalarProperty Name="projectid" ColumnName="projectid" />
+          <ScalarProperty Name="sprintid" ColumnName="sprintid" />
+          <ScalarProperty Name="rankid" ColumnName="rankid" />
+          <ScalarProperty Name="assignee" ColumnName="assignee" />
+          <ScalarProperty Name="estimate" ColumnName="estimate" />
+          <ScalarProperty Name="tags" ColumnName="tags" />
+          <ScalarProperty Name="priority" ColumnName="priority" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="descreption" ColumnName="descreption" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="keyname" ColumnName="keyname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sprints">
+      <EntityTypeMapping TypeName="ftestModel.sprint">
+        <MappingFragment StoreEntitySet="sprints">
+          <ScalarProperty Name="estimate" ColumnName="estimate" />
+          <ScalarProperty Name="numoftissues" ColumnName="numoftissues" />
+          <ScalarProperty Name="projectid" ColumnName="projectid" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="number" ColumnName="number" />
+          <ScalarProperty Name="sid" ColumnName="sid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pojectdevs">
+      <EntityTypeMapping TypeName="ftestModel.pojectdev">
+        <MappingFragment StoreEntitySet="pojectdevs">
+          <ScalarProperty Name="projectid" ColumnName="projectid" />
+          <ScalarProperty Name="devname" ColumnName="devname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="ftestModel.Comment">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="comment1" ColumnName="comment" />
+          <ScalarProperty Name="issueid" ColumnName="issueid" />
+          <ScalarProperty Name="projectid" ColumnName="projectid" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tags">
+      <EntityTypeMapping TypeName="ftestModel.Tag">
+        <MappingFragment StoreEntitySet="Tags">
+          <ScalarProperty Name="Tag1" ColumnName="Tag" />
+          <ScalarProperty Name="projectid" ColumnName="projectid" />
+          <ScalarProperty Name="issueid" ColumnName="issueid" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="attachments">
+      <EntityTypeMapping TypeName="ftestModel.attachment">
+        <MappingFragment StoreEntitySet="attachment">
+          <ScalarProperty Name="projectid" ColumnName="projectid" />
+          <ScalarProperty Name="issueid" ColumnName="issueid" />
+          <ScalarProperty Name="attachmentdest" ColumnName="attachmentdest" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

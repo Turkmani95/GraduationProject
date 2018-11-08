@@ -1,0 +1,111 @@
+﻿@model MvcApplicationTest1.DAL.issue
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Issue @Html.DisplayFor(model => model.descreption) Details</h2>
+
+<fieldset>
+    <div class="display-label">
+        <h3>- Key Name</h3>
+    </div>
+    <div class="display-field">
+        <p class="lead">@Html.DisplayFor(model => model.keyname)</p>
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.status)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.status)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.descreption)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.descreption)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.type)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.type)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.priority)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.priority)
+    </div>
+
+    <div class="display-label">
+        <h3>Tags</h3>
+    </div>
+    <div class="display-field">
+        @Html.Action("Index", "Tags", new { pid = Model.projectid, isid = Model.id })
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.estimate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.estimate)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.assignee)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.assignee)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.rankid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.rankid)
+    </div>
+
+    <div class="display-label">
+        <h3>Attachments</h3>
+    </div>
+    <div class="display-field">
+        @Html.Action("Index", "attachment", new { pid = Model.projectid, isid = Model.id })
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.sprintid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.sprintid)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.projectid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.projectid)
+    </div>
+</fieldset>
+<p>
+    @ViewBag.errormsg
+</p>
+<div>
+
+    @Html.Action("Index", "comments", new { pid = Model.projectid, isid = Model.id })
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Delete", "Delete", new { id = Model.id }) |
+    @Html.ActionLink("View Activity Stream of this issue", "index", "ActivityStream", new { isid = Model.id }, null) |
+    @if (User.IsInRole("developer"))
+    { @Html.ActionLink("Assign to me", "assigneissue", new { id = Model.id });
+    } |
+    @Html.ActionLink("Back to Agile Board", "indexproject", "Column", new { id = Model.projectid }, null) |
+
+</p>

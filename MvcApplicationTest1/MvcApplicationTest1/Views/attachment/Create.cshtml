@@ -1,0 +1,57 @@
+﻿@model MvcApplicationTest1.DAL.attachment
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Attach File</h2>
+
+@using (Html.BeginForm("Create", "attachment", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
+
+        @*<div class="editor-label">
+            File
+        </div>*@
+
+    <div class ="form-group">
+        <label class="col-md-2 control-label">Upload File</label>
+        <div class="col-md-10">
+            <input type="file" class="form-control-file btn btn-default" name="fileToUpload">
+            @Html.ValidationMessageFor(model => model.attachmentdest)
+           <p style="color:red">@ViewBag.error</p> 
+        </div>
+    </div>
+
+        @Html.HiddenFor(model => model.projectid, new { @Value = ViewBag.pid })
+        @Html.HiddenFor(model => model.issueid, new { @Value = ViewBag.isid })
+
+
+
+ 
+       <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Upload" />
+          
+            <a class="btn btn-primary inline" href="@Url.Action("Details", "issues", new { id = @ViewBag.isid }, null)">Back To Issue Details</a>
+            <a class="btn btn-primary inline" href="@Url.Action("indexproject", "Column", new { id = @ViewBag.pid }, null)">Back to Agile Board</a>
+        </div>
+    </div>
+
+}
+
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }

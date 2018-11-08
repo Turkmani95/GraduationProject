@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "View1";
+}
+
+ 
+   <h2>Index</h2>
+
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table>
+            <tr>
+                <th>
+                    id
+                </th>
+                <th>
+                   price
+                </th>
+               
+            </tr>
+
+            @foreach (var p in ViewBag.rresult)
+            {
+                <tr>
+                    <td>
+                      @p.id
+                    </td>
+                    <td>
+                        @p.keyname
+                    </td>
+                    
+                </tr>
+            }
+
+        </table>
+ 
+  
+  
+  
+  
+ 

@@ -1,0 +1,43 @@
+﻿@model MvcApplicationTest1.DAL.column
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>ADD New Column To Project @ViewBag.projname</h2>
+
+@using (Html.BeginForm("Create", "Column", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+   
+
+
+      @*  @Html.HiddenFor(model => model.colid)*@
+
+      
+        <div class="form-group">
+            <label class="col-md-2 control-label">Column Name</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.name)
+                <p style="color:red">@ViewBag.errormsg</p>
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.projectid, new { @Value = ViewBag.projid })
+       
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-primary" value="ADD" />
+
+                <a class="btn btn-primary inline" href="@Url.Action("indexproject", "Column", new { id = @ViewBag.projid }, null)">Back To Agile Board</a>
+            </div>
+        </div>
+       
+   
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

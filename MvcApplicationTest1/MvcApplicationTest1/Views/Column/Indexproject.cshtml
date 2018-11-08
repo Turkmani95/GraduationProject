@@ -1,0 +1,89 @@
+﻿@model IEnumerable<MvcApplicationTest1.DAL.column>
+
+@{
+    ViewBag.Title = "Agile Boards";
+}
+
+@*<h2>Agile Board of Project @ViewBag.projectid</h2>*@
+
+@*<p>
+    @Html.ActionLink("ADD New Column", "Create", new { id = ViewBag.projectid })
+</p>
+<p>
+    @Html.ActionLink("View Sprints ", "ViewSprints", "Project", new { id = ViewBag.projectid }, null) || @Html.ActionLink("End Sprint ", "EndSprint", "Project", new { id = ViewBag.projectid }, null)
+</p>
+
+<p>
+    @Html.ActionLink("ADD Developers", "Create", "projectdev", new { pid = ViewBag.projectid }, null) || @Html.ActionLink("View Developers in the project", "index", "projectdev", new { pid = ViewBag.projectid }, null)
+</p>
+
+<p>
+    @Html.ActionLink("View Activity Stream for this project", "Index", "activitystream", new { sid = -1 ,pid = ViewBag.projectid }, null)
+</p>
+
+<p>
+    @Html.ActionLink("Finish Project", "endproject", "project", new { id= ViewBag.projectid }, null)
+</p>*@
+
+<div id="mySidenav" class="sidenav" style="z-index:3">
+
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+@if (User.IsInRole("teamleader") || User.IsInRole("admin"))
+{
+    <a href="@Url.Action("Create", "Column", new { id = ViewBag.projectid })">Add New Column</a>
+}
+    <a href="@Url.Action("ViewSprints", "Project", new { id = ViewBag.projectid },null)">View Sprints</a>
+@if (User.IsInRole("teamleader") || User.IsInRole("admin"))
+{
+    <a href="@Url.Action("EndSprint", "Project", new { id = ViewBag.projectid },null)">End Sprint</a>
+     <a href="@Url.Action("Create", "Projectdev", new { pid = ViewBag.projectid }, null)">Add Developers</a>
+}
+
+   
+    <a href="@Url.Action("index", "Projectdev", new { pid =ViewBag.projectid }, null)">View Developers in the Project</a>
+    <a href="@Url.Action("index", "activitystream", new { sid = -1, pid = ViewBag.projectid }, null)">View Activity Stream for This Project</a>
+@if (User.IsInRole("teamleader") || User.IsInRole("admin"))
+{
+    <a href="@Url.Action("endproject", "Project", new { id = ViewBag.projectid }, null)">Finish Project</a>
+}
+</div>
+
+    @*<p>Sort By</p>
+    <p>@Html.ActionLink("Priority High to Low", "indexproject", "Column", new { id = ViewBag.projectid, sort = 1 }, null) @Html.ActionLink("Priority Low to High", "indexproject", "Column", new { sort = 2 }, null) @Html.ActionLink("keyname (A - Z)", "indexproject", "Column", new { sort = 3 }, null) @Html.ActionLink("keyname (Z - A)", "indexproject", "Column", new { sort = 4 }, null) @Html.ActionLink("name (A - Z)", "indexproject", "Column", new { sort = 5 }, null) @Html.ActionLink("name (Z - A)", "indexproject", "Column", new { sort = 6 }, null)</p>*@
+    @*<p>filter By</p>
+    <p>Type : @Html.ActionLink("Epic", "indexproject", "Column", new { filter = 1 }, null) @Html.ActionLink("User Story", "indexproject", "Column", new { filter = 2 }, null) @Html.ActionLink("Bug", "indexproject", "Column", new { filter = 3 }, null)</p>*@
+
+
+
+<div>
+    @*@foreach (var item in Model)
+    {
+        <table width="100" border="1" style="float: left">
+            <tr>
+                <th>
+                    @Html.DisplayFor(modelItem => item.name)
+                </th>
+
+            </tr>
+
+            @Html.Action("colissues", "Column", new { projid = ViewBag.projectid, colid = item.colid, currsp = ViewBag.currentsp, sort = ViewBag.sort ,filter = ViewBag.filter })
+
+
+        </table>
+    }*@
+    @Html.Action("colissuesajax", "Column", new { projid = ViewBag.projectid, sort = ViewBag.sort, filter = ViewBag.filter })
+
+</div>
+<div >
+    @Html.Action("Backlog", "project", new { id = ViewBag.projectid, err = ViewBag.errormsg })
+</div>
+<div >
+   
+        @Html.Action("Index", "Comments", new { pid = ViewBag.projectid, isid = 4 })
+
+</div>
+
+
+
+
+

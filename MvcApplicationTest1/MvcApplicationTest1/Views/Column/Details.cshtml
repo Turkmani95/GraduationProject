@@ -1,0 +1,36 @@
+﻿@model MvcApplicationTest1.DAL.column
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>column</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.colid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.colid)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.project.projectkey)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.project.projectkey)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

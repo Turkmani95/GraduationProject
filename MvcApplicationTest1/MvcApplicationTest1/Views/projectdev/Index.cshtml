@@ -1,0 +1,51 @@
+﻿@model IEnumerable<MvcApplicationTest1.DAL.pojectdev>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Developers of the project @Html.Action("projectName", "project", new { id = @ViewBag.projid })</h2>
+
+<table id="Appuser" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+
+            <th>
+                Developer Name
+            </th>
+            <th>
+              Number of Assigned Issues
+            </th>
+            <th>
+                Project
+            </th>
+            
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.devname)
+            </td>
+            <td>
+                @Html.Action("numberofassignedissues", "projectdev", new { name = item.devname,id =ViewBag.projid })
+            </td>
+            <td>
+               @Html.Action("projectName", "project", new { id = @ViewBag.projid })
+            </td>
+        </tr>
+    }
+
+</table>
+@if (User.IsInRole("teamleader")) { <a class="btn btn-primary inline" href="@Url.Action("create", "projectdev", new { pid = @ViewBag.projid }, null)">Add Developers</a> }
+
+<a class="btn btn-primary inline" href="@Url.Action("indexproject", "Column", new { id = @ViewBag.projid }, null)">Back To Agile Board</a>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#Appuser").DataTable();
+        })
+    </script>
+}

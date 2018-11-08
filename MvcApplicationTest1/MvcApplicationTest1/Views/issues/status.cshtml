@@ -1,0 +1,16 @@
+﻿@model IEnumerable<MvcApplicationTest1.DAL.column>
+@{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    
+    
+foreach (var item in Model)
+{
+    listItems.Add(new SelectListItem
+    {
+        Text = item.name,
+        Value = item.colid.ToString()
+
+    });
+    
+    
+}

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<MvcApplicationTest1.DAL.Tag>
+
+
+@foreach (var item in Model)
+{ <span class="badge badge-pill badge-secondary" style="color:white">@Html.ActionLink(Html.DisplayFor(modelItem => item.Tag1).ToHtmlString(), "issuesintag", "Tags", new { pid = item.projectid, tagid = item.id }, null) 
+    @if (User.IsInRole("developer") )
+{
+    <a href="@Url.Action("edit","Tags",new { id = item.id})">
+    <img class="icon" src="\Content\edit.png" width="16" height="16" />
+    </a>
+      <a href="@Url.Action("Delete", "Tags", new { id = item.id })">
+      <img class="icon" src="\Content\delete.png" width="16" height="16" />
+      </a>
+    }
+    </span> }
+<br />
+<br />
+@if (User.IsInRole("developer") )
+                {
+<button type="button" class="btn btn-secondary btn-sm" style="color:white">@Html.ActionLink("Add Tag", "Create", new { pid = ViewBag.pid, isid = ViewBag.isid })</button>
+}
+@*<span class="badge badge-pill badge-primary">Primary</span>
+<span class="badge badge-pill badge-primary">Primary</span>
+<span class="badge badge-pill badge-primary">Primary</span>
+<p>
+    @Html.ActionLink("Add Tag", "Create", new { pid = ViewBag.pid, isid = ViewBag.isid })
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.issue.keyname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.project.projectkey)
+        </th>
+        <th>
+            Tag
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.issue.keyname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.project.projectkey)
+        </td>
+        <td>
+            @Html.ActionLink(Html.DisplayFor(modelItem => item.Tag1).ToHtmlString(), "issuesintag", "Tags", new { pid = item.projectid, tagid = item.id }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>*@

@@ -1,0 +1,101 @@
+﻿@model IEnumerable<MvcApplicationTest1.DAL.project>
+
+@{
+    ViewBag.Title = "Index";
+
+}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link type="text/css" rel="stylesheet" href="~/content/cards.css " />
+
+<h2>Projects</h2>
+@if (User.IsInRole("teamleader") || User.IsInRole("admin"))
+{
+
+    <p>
+        @Html.ActionLink("Create New Project", "Create", null, new { @class = "btn btn-default" })
+    </p>
+}
+
+<section class="card-container">
+    @{
+        @*int x = 0;*@
+        foreach (var item in Model)
+        {
+
+            <article class="card">
+                <header class="card__title">
+                    <h3>
+                        @Html.ActionLink(Html.DisplayFor(modelItem => item.projectname).ToHtmlString(), "indexproject", "Column", new { id = item.id }, null)
+                        @if (User.IsInRole("teamleader") || User.IsInRole("admin"))
+                        {
+                            <a href="@Url.Action("edit","project",new { id=item.id})">
+                                <img class="icon" src="\Content\edit.png" width="20" height="20" />
+                            </a>
+                        }
+
+
+                    </h3>
+                </header>
+                <header class="card__title" style="color:gray">
+                    <h4>Key : @Html.DisplayFor(modelItem => item.projectkey)</h4>
+                </header>
+                <main class="card__description">
+                    Date : @Html.DisplayFor(modelItem => item.date) <br>
+                    Scrum Master : @Html.DisplayFor(modelItem => item.projectleader)<br>
+                    Owner : @Html.DisplayFor(modelItem => item.projectowner)<br>
+                </main>
+
+            </article>
+
+
+            @*if (x % 3 == 0)
+                    {
+                        @: <div class="row hidden-md-up">
+                        }
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title">@Html.ActionLink(Html.DisplayFor(modelItem => item.projectname).ToHtmlString(), "indexproject", "Column", new { id = item.id }, null)</h4>
+                                    <h6 class="card-subtitle text-muted">@Html.DisplayFor(modelItem => item.projectkey)</h6>
+                                    <p class="card-text p-y-1">@Html.DisplayFor(modelItem => item.date)</p>
+                                    <a href="#" class="card-link">Leader : @Html.DisplayFor(modelItem => item.projectowner)</a>
+                                    <a href="#" class="card-link">Owner : @Html.DisplayFor(modelItem => item.projectleader)</a>
+                                </div>
+                            </div>
+                        </div>
+                    if (x + 1 % 3 == 0)
+                    {@:
+                </div>}
+                }*@
+
+
+            @*<tr>
+                    <td>
+                        @Html.ActionLink(Html.DisplayFor(modelItem => item.projectname).ToHtmlString(), "indexproject", "Column", new { id = item.id }, null)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.projectkey)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.projectowner)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.projecttype)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.projectleader)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                    </td>
+                </tr>*@
+            //x++;
+        }
+    }
+</section>

@@ -1,0 +1,150 @@
+﻿@model MvcApplicationTest1.Models.UserProfile
+@{
+    ViewBag.Title = "ViewProfilePage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<div class="items">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-3 hidden-xs">
+                <!-- Sidebar navigation -->
+                <h5 class="title">Pages</h5>
+                <!-- Sidebar navigation -->
+                <nav>
+                    <ul id="navi" class="nav nav-pills flex-column">
+                        <li class="nav-item"><a href="Account/viewprofilepage">My Account</a></li>
+
+                        <li class="nav-item"><a href="Order/Index/">Projects</a></li>
+                        <li class="nav-item"> <a href="Account/updateprofilepage">Issues</a></li>
+                        <li class="nav-item"> <a href="Account/Manage2">Change Password</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- Main content -->
+            <div class="col-md-9 col-sm-9">
+                <h2 class="title">My Account</h2>
+                <!-- Your details -->
+
+                <div class="address">
+                   
+                        <!-- Your name -->
+                        <h3>Name :  </h3> <strong>@Html.DisplayFor(modelItem => modelItem.UserName)</strong><br>
+                        <!-- Address -->
+                    <h3>Email :  </h3> <strong>@Html.DisplayFor(modelItem => modelItem.email)</strong><br>
+
+                        <!-- Phone number -->
+                    <h3>Mobile Number :  </h3> <strong>@Html.DisplayFor(modelItem => modelItem.mobilenum)</strong><br>
+                    <h3>Role :  </h3> <strong>@Html.DisplayFor(modelItem => modelItem.roletype)</strong><br>
+                    
+                </div>
+           
+
+            
+
+            </div>
+
+
+        </div>
+    </div>
+</div>*@
+
+
+<link type="text/css" rel="stylesheet" href="~/content/fieldset.css " />
+
+<div class="container">
+    <br />
+    <div class="panel panel-default">
+
+        <div class="panel-heading" style="word-break: break-all; word-wrap: break-word;">
+         
+            <br />
+            <p>
+                <a class="btn btn-primary inline" href="@Url.Action("VIewProfilePage","Account")">My Account</a>
+               
+                    <a class="btn btn-primary inline" href="@Url.Action("Viewprojects","project")">Projects</a>
+                   
+                <a class="btn btn-primary inline" href="@Url.Action("ViewIssues", "issues", new { name = Session["UserName"] })">Issues</a>
+               
+                    <a class="btn btn-primary inline" href="@Url.Action("Index", "activitystream", new { sid = -1, pid = -1, usid = int.Parse(Session["UserId"] + "") }, null)">Activity Stream</a>                
+             
+                <a class="btn btn-primary inline" href="@Url.Action("updateprofilepage", "Account")">Update Account Information</a>
+
+                <a class="btn btn-primary inline" href="@Url.Action("Manage", "Account")">Change Password</a>
+            
+            </p>
+
+        </div>
+        <div class="panel-body">
+
+            <fieldset class="col-md-6">
+                <legend>Name</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body" style="word-break: break-all; word-wrap: break-word;">
+                        <p class="lead">@Html.DisplayFor(model => model.UserName)</p>
+                    </div>
+                </div>
+
+            </fieldset>
+            <div class="clearfix"></div>
+
+            <fieldset class="col-md-6">
+                <legend>Role</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body" style="word-break: break-all; word-wrap: break-word;">
+                        @if(Model.roletype == "teamleader"){<p class="lead">Scrum Master</p>}
+                        @if(Model.roletype == "developer"){<p class="lead">Developer</p>}
+                        @if (Model.roletype == "projectowner")
+                        {<p class="lead">Project Owner</p>}
+                                       
+                    </div>
+
+                </div>
+                
+            </fieldset>
+
+            <div class="clearfix"></div>
+
+            <fieldset class="col-md-6">
+                <legend>Email</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body" style="word-break: break-all; word-wrap: break-word;">
+                        <p class="lead">@Html.DisplayFor(model => model.email)</p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+            <fieldset class="col-md-6">
+                <legend>Mobile Number</legend>
+
+                <div class="panel panel-default">
+                    <div class="panel-body" style="word-break: break-all; word-wrap: break-word;">
+                        <p class="lead">@Html.DisplayFor(model => model.mobilenum)</p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="clearfix"></div>
+
+
+
+        </div>
+
+    </div>
+</div>
+
+<p>
+    @ViewBag.errormsg
+</p>
+<div>
+    <a class="btn btn-primary inline" href="@Url.Action("Index","Home")">Back To Home Page</a>
+
+
+</div>
+

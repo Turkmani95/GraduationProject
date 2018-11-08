@@ -1,0 +1,441 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ftestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="activitystream">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="issueid" Type="Int32" Nullable="false" />
+    <Property Name="userid" Type="Int32" Nullable="false" />
+    <Property Name="actiontype" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="issuekey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="actiondate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="activitystream1" Relationship="Self.FK_activitystream_activitystream" FromRole="activitystream" ToRole="activitystream1" />
+    <NavigationProperty Name="activitystream2" Relationship="Self.FK_activitystream_activitystream" FromRole="activitystream1" ToRole="activitystream" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="projectid" Type="Int32" Nullable="false" />
+    <Property Name="attachment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="issue" Relationship="ftestModel.FK_activitystream_issues" FromRole="activitystream" ToRole="issue" />
+    <NavigationProperty Name="project" Relationship="ftestModel.FK_activitystream_projects" FromRole="activitystream" ToRole="project" />
+  </EntityType>
+  <EntityType Name="column">
+    <Key>
+      <PropertyRef Name="colid" />
+    </Key>
+    <Property Name="colid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="issues" Relationship="ftestModel.FK_issues_columns" FromRole="column" ToRole="issue" />
+    <Property Name="projectid" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="project" Relationship="ftestModel.FK_columns_projects" FromRole="column" ToRole="project" />
+  </EntityType>
+  <Association Name="FK_activitystream_activitystream">
+    <End Role="activitystream" Type="Self.activitystream" Multiplicity="1" />
+    <End Role="activitystream1" Type="Self.activitystream" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="activitystream">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="activitystream1">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ftestEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="activitystreams" EntityType="Self.activitystream" />
+    <EntitySet Name="columns" EntityType="Self.column" />
+    <AssociationSet Name="FK_activitystream_activitystream" Association="Self.FK_activitystream_activitystream">
+      <End Role="activitystream" EntitySet="activitystreams" />
+      <End Role="activitystream1" EntitySet="activitystreams" />
+    </AssociationSet>
+    <EntitySet Name="projects" EntityType="ftestModel.project" />
+    <EntitySet Name="issues" EntityType="ftestModel.issue" />
+    <AssociationSet Name="FK_issues_columns" Association="ftestModel.FK_issues_columns">
+      <End Role="column" EntitySet="columns" />
+      <End Role="issue" EntitySet="issues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_issues_projects" Association="ftestModel.FK_issues_projects">
+      <End Role="project" EntitySet="projects" />
+      <End Role="issue" EntitySet="issues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_columns_projects" Association="ftestModel.FK_columns_projects">
+      <End Role="project" EntitySet="projects" />
+      <End Role="column" EntitySet="columns" />
+    </AssociationSet>
+    <EntitySet Name="sprints" EntityType="ftestModel.sprint" />
+    <AssociationSet Name="FK_issues_sprints" Association="ftestModel.FK_issues_sprints">
+      <End Role="sprint" EntitySet="sprints" />
+      <End Role="issue" EntitySet="issues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_projects_sprints" Association="ftestModel.FK_projects_sprints">
+      <End Role="sprint" EntitySet="sprints" />
+      <End Role="project" EntitySet="projects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sprints_projects" Association="ftestModel.FK_sprints_projects">
+      <End Role="project" EntitySet="projects" />
+      <End Role="sprint" EntitySet="sprints" />
+    </AssociationSet>
+    <EntitySet Name="pojectdevs" EntityType="ftestModel.pojectdev" />
+    <AssociationSet Name="FK_pojectdevs_projects" Association="ftestModel.FK_pojectdevs_projects">
+      <End Role="project" EntitySet="projects" />
+      <End Role="pojectdev" EntitySet="pojectdevs" />
+    </AssociationSet>
+    <EntitySet Name="Comments" EntityType="ftestModel.Comment" />
+    <EntitySet Name="Tags" EntityType="ftestModel.Tag" />
+    <AssociationSet Name="FK_Tags_issues" Association="ftestModel.FK_Tags_issues">
+      <End Role="issue" EntitySet="issues" />
+      <End Role="Tag" EntitySet="Tags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tags_projects" Association="ftestModel.FK_Tags_projects">
+      <End Role="project" EntitySet="projects" />
+      <End Role="Tag" EntitySet="Tags" />
+    </AssociationSet>
+    <EntitySet Name="attachments" EntityType="ftestModel.attachment" />
+    <AssociationSet Name="FK_attachment_issues" Association="ftestModel.FK_attachment_issues">
+      <End Role="issue" EntitySet="issues" />
+      <End Role="attachment" EntitySet="attachments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_attachment_projects" Association="ftestModel.FK_attachment_projects">
+      <End Role="project" EntitySet="projects" />
+      <End Role="attachment" EntitySet="attachments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_issues" Association="ftestModel.FK_Comments_issues">
+      <End Role="issue" EntitySet="issues" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_projects" Association="ftestModel.FK_Comments_projects">
+      <End Role="project" EntitySet="projects" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_issues_issues" Association="ftestModel.FK_issues_issues">
+      <End Role="issue" EntitySet="issues" />
+      <End Role="issue1" EntitySet="issues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_projects_projects" Association="ftestModel.FK_projects_projects">
+      <End Role="project" EntitySet="projects" />
+      <End Role="project1" EntitySet="projects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_activitystream_issues" Association="ftestModel.FK_activitystream_issues">
+      <End Role="issue" EntitySet="issues" />
+      <End Role="activitystream" EntitySet="activitystreams" />
+    </AssociationSet>
+    <AssociationSet Name="FK_activitystream_projects" Association="ftestModel.FK_activitystream_projects">
+      <End Role="project" EntitySet="projects" />
+      <End Role="activitystream" EntitySet="activitystreams" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="project">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="projectkey" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="projectowner" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="projecttype" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="projectleader" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="projectname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="issues" Relationship="ftestModel.FK_issues_projects" FromRole="project" ToRole="issue" />
+    <NavigationProperty Name="columns" Relationship="ftestModel.FK_columns_projects" FromRole="project" ToRole="column" />
+    <Property Name="currentsprint" Type="Int32" />
+    <NavigationProperty Name="sprint" Relationship="ftestModel.FK_projects_sprints" FromRole="project" ToRole="sprint" />
+    <NavigationProperty Name="sprints" Relationship="ftestModel.FK_sprints_projects" FromRole="project" ToRole="sprint" />
+    <NavigationProperty Name="pojectdevs" Relationship="ftestModel.FK_pojectdevs_projects" FromRole="project" ToRole="pojectdev" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Tags" Relationship="ftestModel.FK_Tags_projects" FromRole="project" ToRole="Tag" />
+    <NavigationProperty Name="attachments" Relationship="ftestModel.FK_attachment_projects" FromRole="project" ToRole="attachment" />
+    <NavigationProperty Name="Comments" Relationship="ftestModel.FK_Comments_projects" FromRole="project" ToRole="Comment" />
+    <NavigationProperty Name="projects1" Relationship="ftestModel.FK_projects_projects" FromRole="project" ToRole="project1" />
+    <NavigationProperty Name="project1" Relationship="ftestModel.FK_projects_projects" FromRole="project1" ToRole="project" />
+    <NavigationProperty Name="activitystreams" Relationship="ftestModel.FK_activitystream_projects" FromRole="project" ToRole="activitystream" />
+  </EntityType>
+  <EntityType Name="issue">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="keyname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="Int32" Nullable="false" />
+    <Property Name="descreption" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="priority" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tags" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="estimate" Type="Int32" />
+    <Property Name="assignee" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="rankid" Type="Int32" />
+    <Property Name="sprintid" Type="Int32" />
+    <Property Name="projectid" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="column" Relationship="ftestModel.FK_issues_columns" FromRole="issue" ToRole="column" />
+    <NavigationProperty Name="project" Relationship="ftestModel.FK_issues_projects" FromRole="issue" ToRole="project" />
+    <NavigationProperty Name="sprint" Relationship="ftestModel.FK_issues_sprints" FromRole="issue" ToRole="sprint" />
+    <NavigationProperty Name="Tags1" Relationship="ftestModel.FK_Tags_issues" FromRole="issue" ToRole="Tag" />
+    <NavigationProperty Name="attachments" Relationship="ftestModel.FK_attachment_issues" FromRole="issue" ToRole="attachment" />
+    <NavigationProperty Name="Comments" Relationship="ftestModel.FK_Comments_issues" FromRole="issue" ToRole="Comment" />
+    <NavigationProperty Name="issues1" Relationship="ftestModel.FK_issues_issues" FromRole="issue" ToRole="issue1" />
+    <NavigationProperty Name="issue1" Relationship="ftestModel.FK_issues_issues" FromRole="issue1" ToRole="issue" />
+    <NavigationProperty Name="activitystreams" Relationship="ftestModel.FK_activitystream_issues" FromRole="issue" ToRole="activitystream" />
+  </EntityType>
+  <Association Name="FK_issues_columns">
+    <End Type="ftestModel.column" Role="column" Multiplicity="1" />
+    <End Type="ftestModel.issue" Role="issue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="column">
+        <PropertyRef Name="colid" />
+      </Principal>
+      <Dependent Role="issue">
+        <PropertyRef Name="status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_issues_projects">
+    <End Type="ftestModel.project" Role="project" Multiplicity="1" />
+    <End Type="ftestModel.issue" Role="issue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="project">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="issue">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_columns_projects">
+    <End Type="ftestModel.project" Role="project" Multiplicity="1" />
+    <End Type="ftestModel.column" Role="column" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="project">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="column">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="sprint">
+    <Key>
+      <PropertyRef Name="sid" />
+    </Key>
+    <Property Name="sid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="number" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="projectid" Type="Int32" Nullable="false" />
+    <Property Name="numoftissues" Type="Int32" />
+    <Property Name="estimate" Type="Int32" />
+    <NavigationProperty Name="issues" Relationship="ftestModel.FK_issues_sprints" FromRole="sprint" ToRole="issue" />
+    <NavigationProperty Name="projects" Relationship="ftestModel.FK_projects_sprints" FromRole="sprint" ToRole="project" />
+    <NavigationProperty Name="project" Relationship="ftestModel.FK_sprints_projects" FromRole="sprint" ToRole="project" />
+  </EntityType>
+  <Association Name="FK_issues_sprints">
+    <End Type="ftestModel.sprint" Role="sprint" Multiplicity="0..1" />
+    <End Type="ftestModel.issue" Role="issue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sprint">
+        <PropertyRef Name="sid" />
+      </Principal>
+      <Dependent Role="issue">
+        <PropertyRef Name="sprintid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_projects_sprints">
+    <End Type="ftestModel.sprint" Role="sprint" Multiplicity="0..1" />
+    <End Type="ftestModel.project" Role="project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sprint">
+        <PropertyRef Name="sid" />
+      </Principal>
+      <Dependent Role="project">
+        <PropertyRef Name="currentsprint" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_sprints_projects">
+    <End Type="ftestModel.project" Role="project" Multiplicity="1" />
+    <End Type="ftestModel.sprint" Role="sprint" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="project">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="sprint">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="pojectdev">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="devname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="projectid" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="project" Relationship="ftestModel.FK_pojectdevs_projects" FromRole="pojectdev" ToRole="project" />
+  </EntityType>
+  <Association Name="FK_pojectdevs_projects">
+    <End Type="ftestModel.project" Role="project" Multiplicity="1" />
+    <End Type="ftestModel.pojectdev" Role="pojectdev" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="project">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="pojectdev">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="projectid" Type="Int32" Nullable="false" />
+    <Property Name="issueid" Type="Int32" Nullable="false" />
+    <Property Name="comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="userid" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="issue" Relationship="ftestModel.FK_Comments_issues" FromRole="Comment" ToRole="issue" />
+    <NavigationProperty Name="project" Relationship="ftestModel.FK_Comments_projects" FromRole="Comment" ToRole="project" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="issueid" Type="Int32" Nullable="false" />
+    <Property Name="projectid" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="issue" Relationship="ftestModel.FK_Tags_issues" FromRole="Tag" ToRole="issue" />
+    <NavigationProperty Name="project" Relationship="ftestModel.FK_Tags_projects" FromRole="Tag" ToRole="project" />
+    <Property Name="Tag1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_Tags_issues">
+    <End Type="ftestModel.issue" Role="issue" Multiplicity="1" />
+    <End Type="ftestModel.Tag" Role="Tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="issue">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Tag">
+        <PropertyRef Name="issueid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tags_projects">
+    <End Type="ftestModel.project" Role="project" Multiplicity="1" />
+    <End Type="ftestModel.Tag" Role="Tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="project">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Tag">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="attachment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="attachmentdest" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="issueid" Type="Int32" Nullable="false" />
+    <Property Name="projectid" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="issue" Relationship="ftestModel.FK_attachment_issues" FromRole="attachment" ToRole="issue" />
+    <NavigationProperty Name="project" Relationship="ftestModel.FK_attachment_projects" FromRole="attachment" ToRole="project" />
+  </EntityType>
+  <Association Name="FK_attachment_issues">
+    <End Type="ftestModel.issue" Role="issue" Multiplicity="1" />
+    <End Type="ftestModel.attachment" Role="attachment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="issue">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="attachment">
+        <PropertyRef Name="issueid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_attachment_projects">
+    <End Type="ftestModel.project" Role="project" Multiplicity="1" />
+    <End Type="ftestModel.attachment" Role="attachment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="project">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="attachment">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_issues">
+    <End Type="ftestModel.issue" Role="issue" Multiplicity="1" />
+    <End Type="ftestModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="issue">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="issueid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_projects">
+    <End Type="ftestModel.project" Role="project" Multiplicity="1" />
+    <End Type="ftestModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="project">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_issues_issues">
+    <End Type="ftestModel.issue" Role="issue" Multiplicity="1" />
+    <End Type="ftestModel.issue" Role="issue1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="issue">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="issue1">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_projects_projects">
+    <End Type="ftestModel.project" Role="project" Multiplicity="1" />
+    <End Type="ftestModel.project" Role="project1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="project">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="project1">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_activitystream_issues">
+    <End Type="ftestModel.issue" Role="issue" Multiplicity="1" />
+    <End Type="ftestModel.activitystream" Role="activitystream" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="issue">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="activitystream">
+        <PropertyRef Name="issueid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_activitystream_projects">
+    <End Type="ftestModel.project" Role="project" Multiplicity="1" />
+    <End Type="ftestModel.activitystream" Role="activitystream" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="project">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="activitystream">
+        <PropertyRef Name="projectid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

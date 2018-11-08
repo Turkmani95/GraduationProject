@@ -1,0 +1,38 @@
+﻿@model MvcApplicationTest1.DAL.pojectdev
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>ADD DEVELOPERS  To Project @Html.Action("ProjectName", "Project", new { id = ViewBag.pid })</h2>
+
+@using (Html.BeginForm("Create", "projectdev", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+   
+
+   
+        <div class="form-group">
+            @*@Html.EditorFor(model => model.devname)
+            @Html.ValidationMessageFor(model => model.devname)*@
+            <label class="col-md-2 control-label">Developers</label>
+                   @Html.DropDownListFor(model => model.devname, (SelectList)ViewBag.usersqq, new { @class = "form-control" })</div>
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.projectid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.projectid)
+            @Html.ValidationMessageFor(model => model.projectid)
+        </div>*@
+        @Html.HiddenFor(model => model.projectid, new { @Value = ViewBag.pid })
+     <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="ADD" />
+            <a class="btn btn-primary inline" href="@Url.Action("indexproject", "Column", new { id = ViewBag.pid }, null)">Back To Agile Board</a>
+        </div>
+    </div>
+}
+
